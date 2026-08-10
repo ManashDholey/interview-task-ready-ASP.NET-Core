@@ -1,6 +1,21 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Builder;
+// Option 2: Factory-Based Approach (Using IMiddleware)If you want compile-time safety and cleaner DI capabilities, you can explicitly implement the IMiddleware interface from the Microsoft.AspNetCore.Http namespace.csharpusing Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+
+public class FactoryMiddleware : IMiddleware
+{
+    public async Task InvokeAsync(HttpContext context, RequestDelegate next)
+    {
+        // 1. Logic executed before the next middleware
+        
+        await next(context); // 2. Call next middleware
+        
+        // 3. Logic executed after the next middleware
+    }
+}
+
 public class RequestLoggingMiddleware
 {
     private readonly RequestDelegate _next;
