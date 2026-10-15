@@ -7,3 +7,22 @@ int[] numbers = {1, 2, 3, 1, 3};
 
         // Output the results
         Console.WriteLine("Duplicate elements: " + string.Join(", ", duplicates));
+
+//Frequency
+var data = "Manash Dholey";
+
+var result = data
+    .ToCharArray()
+    .GroupBy(e => e)
+    .Where(e => e.Key != ' ')
+    .Select(g => new
+    {
+        Character = g.Key,
+        Frequency = g.Count()
+    });
+
+foreach (var item in result)
+{
+    Console.WriteLine($"{item.Character} = {item.Frequency}");
+}
+      
