@@ -25,4 +25,14 @@ foreach (var item in result)
 {
     Console.WriteLine($"{item.Character} = {item.Frequency}");
 }
-      
+ int[] salary = { 6000, 1000, 3000, 2000, 1000, 7000 };
+
+        int n = 4; // Find the 3rd highest distinct salary
+
+        var result1 = salary
+            .Distinct()
+            .OrderByDescending(s => s)
+            .Skip(n - 1)
+            .FirstOrDefault();
+
+        Console.WriteLine($"{n}rd highest salary: {result1}");         
