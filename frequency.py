@@ -273,3 +273,18 @@ print(type(data_list))
 for employee in data_json["employees"]:
     if employee["salary"] > 50000:
         print(employee["name"])
+#How would you handle missing keys or unexpected data types in an API response?
+# You can use the get() method with a default value to handle missing keys.
+# You can also use isinstance() to check the data type before processing.
+
+for employee in data_json["employees"]:
+    name = employee.get("name", "Unknown")
+    salary = employee.get("salary", 0)
+    if not isinstance(salary, (int, float)):
+        continue
+    if salary > 50000:
+        print(name)
+#  can you give the example of get method
+example_dict = {"key1": "value1"}
+print(example_dict.get("key1", "default_value"))  # Output: value1
+print(example_dict.get("key2", "default_value"))  # Output: default_value
