@@ -227,3 +227,12 @@ with open("companies.csv", "r", newline="", encoding="utf-8") as file:
     for row in reader:
         print(row)
     file.close()
+print("--------------------------------:Reading JSON string as dictionary:----------------------------------------")
+# How do you convert a JSON string into a Python dictionary?
+# You can use the json.loads() function from the json module to parse a JSON string into a Python dictionary.
+
+import json
+
+json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
+data = json.loads(json_string)
+print(data)
