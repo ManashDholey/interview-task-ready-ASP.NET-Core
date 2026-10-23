@@ -133,3 +133,12 @@ def factorial_recursive(n):
 
 print(factorial_iterative(5))  # 120
 print(factorial_recursive(6))  # 720
+#What is the difference between *args and **kwargs?
+# *args allows a function to accept any number of positional arguments.
+# **kwargs allows a function to accept any number of keyword arguments.
+
+def example_function(*args, **kwargs):
+    print("Positional arguments:", args)
+    print("Keyword arguments:", kwargs)
+
+example_function(1, 2, 3, a=4, b=5)
