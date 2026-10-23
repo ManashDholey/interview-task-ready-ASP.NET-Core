@@ -1,0 +1,36 @@
+name,careers_url,ats,token
+# STARTER LIST - board names are from memory and not verified. Wrong ones are reported in the "Companies" sheet (HTTP 404). Edit freely.
+# If you leave ats/token blank, the script opens careers_url and tries to detect the hiring platform itself.
+Stripe,https://stripe.com/jobs,greenhouse,stripe
+Airbnb,https://careers.airbnb.com/,greenhouse,airbnb
+GitLab,https://about.gitlab.com/jobs/,greenhouse,gitlab
+Cloudflare,https://www.cloudflare.com/careers/,greenhouse,cloudflare
+Coinbase,https://www.coinbase.com/careers,greenhouse,coinbase
+Datadog,https://careers.datadoghq.com/,greenhouse,datadog
+MongoDB,https://www.mongodb.com/company/careers,greenhouse,mongodb
+Twilio,https://www.twilio.com/en-us/company/jobs,greenhouse,twilio
+Discord,https://discord.com/careers,greenhouse,discord
+Figma,https://www.figma.com/careers/,greenhouse,figma
+Databricks,https://www.databricks.com/company/careers,greenhouse,databricks
+Reddit,https://redditinc.com/careers,greenhouse,reddit
+Robinhood,https://robinhood.com/us/en/careers/,greenhouse,robinhood
+Instacart,https://instacart.careers/,greenhouse,instacart
+Brex,https://www.brex.com/careers,greenhouse,brex
+Vercel,https://vercel.com/careers,greenhouse,vercel
+Palantir,https://www.palantir.com/careers/,lever,palantir
+Spotify,https://www.lifeatspotify.com/jobs,lever,spotify
+Ramp,https://ramp.com/careers,ashby,ramp
+Notion,https://www.notion.so/careers,ashby,notion
+Linear,https://linear.app/careers,ashby,linear
+OpenAI,https://openai.com/careers,ashby,openai
+Supabase,https://supabase.com/careers,ashby,supabase
+PostHog,https://posthog.com/careers,ashby,posthog
+Sourcegraph,https://sourcegraph.com/careers,,
+# Indian IT services: these use custom portals, so expect "needs --browser" in the Companies sheet.
+TCS,https://www.tcs.com/careers,,
+Infosys,https://www.infosys.com/careers/,,
+Wipro,https://careers.wipro.com/,,
+HCLTech,https://www.hcltech.com/careers,,
+Tech Mahindra,https://careers.techmahindra.com/,,
+Cognizant,https://careers.cognizant.com/,,
+LTIMindtree,https://www.ltimindtree.com/careers/,,
