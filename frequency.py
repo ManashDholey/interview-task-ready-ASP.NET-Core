@@ -288,3 +288,19 @@ for employee in data_json["employees"]:
 example_dict = {"key1": "value1"}
 print(example_dict.get("key1", "default_value"))  # Output: value1
 print(example_dict.get("key2", "default_value"))  # Output: default_value
+
+# How do you serialize a Python dictionary into a JSON file?
+print("--------------------------------:Serializing dictionary into JSON file:----------------------------------------")
+data_to_serialize = {
+    "name": "Alice",
+    "age": 30,
+    "city": "New York"
+}
+with open("output.json", "w") as file:
+    json.dump(data_to_serialize, file)
+    file.close()
+with open("output.json", "r") as file:
+    data_loaded = json.load(file)
+    file.close()
+print(data_loaded)
+
