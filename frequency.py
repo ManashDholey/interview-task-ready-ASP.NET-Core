@@ -218,10 +218,12 @@ with open('companies.csv', newline='') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         print(row)
+    csvfile.close()
 
 print("--------------------------------:Reading CSV as dictionary:----------------------------------------")
 with open("companies.csv", "r", newline="", encoding="utf-8") as file:
     reader = csv.DictReader(file)
 
     for row in reader:
-        print(row)        
+        print(row)
+    file.close()
