@@ -89,3 +89,15 @@ char_count = {}
 for char in char_count_string:
     char_count[char] = char_count.get(char, 0) + 1
 print(char_count)
+# Find the first non-repeating character in a string.
+first_non_repeating = None
+string_to_check = "occurrences of each"
+char_frequency = {}
+for char in string_to_check:
+    char_frequency[char] = char_frequency.get(char, 0) + 1
+for char in string_to_check:
+    if char_frequency[char] == 1:
+        first_non_repeating = char
+        break
+
+print(first_non_repeating)
