@@ -81,6 +81,61 @@ SELECT * FROM Result WHERE RankSalary =3
 ;WITH Result1 AS (
 SELECT Salary , ROW_NUMBER() over (order by Salary) as RankSalary FROM Employees
 )
+
+
+CREATE OR ALTER PROCEDURE dbo.GetTop10CustomersByPurchase
+(
+    @StartDate DATE,
+    @EndDate   DATE
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+
+        -- Validate input parameters
+        IF @StartDate IS NULL
+           OR @EndDate IS NULL
+           OR @StartDate > @EndDate
+        BEGIN
+            THROW 50001, 'Invalid date range.', 1;
+        END;
+
+        SELECT TOP (10)
+            c.CustomerId,
+            c.CustomerName,
+            SUM(o.TotalAmount) AS TotalPurchaseValue
+        FROM dbo.Customers AS c
+        INNER JOIN dbo.Orders AS o
+            ON o.CustomerId = c.CustomerId
+        WHERE o.OrderDate >= @StartDate
+          AND o.OrderDate < DATEADD(DAY, 1, @EndDate)
+        GROUP BY
+            c.CustomerId,
+            c.CustomerName
+        ORDER BY
+            TotalPurchaseValue DESC,
+            c.CustomerId ASC
+        OPTION (RECOMPILE);
+
+    END TRY
+    BEGIN CATCH
+
+        -- Capture and return the error details
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorNumber INT = ERROR_NUMBER();
+        DECLARE @ErrorLine INT = ERROR_LINE();
+        DECLARE @ErrorProcedure NVARCHAR(128) = ERROR_PROCEDURE();
+
+        -- Optional: log error details to an error-log table here
+
+        -- Re-throw the original error
+        THROW;
+
+    END CATCH;
+END;
+    
 SELECT * FROM Result1 WHERE RankSalary =3
 
 
