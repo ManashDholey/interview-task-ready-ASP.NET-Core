@@ -70,3 +70,11 @@ for key, value in b.items():
     merged[key] = merged.get(key, 0) + value
 
 print(merged)
+#Reverse a string without using slicing ([::-1]).
+string = "Manash Dholey"
+reversed_string = ""
+for char in string:
+    print(char)
+    reversed_string = char + reversed_string
+    #print(reversed_string)
+print(reversed_string)
