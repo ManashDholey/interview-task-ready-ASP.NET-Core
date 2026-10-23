@@ -344,3 +344,16 @@ print(len(duplicates))
 df_csv_no_duplicates = df_csv.drop_duplicates()
 print("CSV DataFrame after removing duplicate rows:")
 print(df_csv_no_duplicates)
+
+# How do you handle null values using isna(), dropna(), and fillna()?
+print("--------------------------------:Handling Null Values:----------------------------------------")
+print("Null values in the CSV DataFrame:")
+print(df_csv.isna())
+
+df_csv_no_nulls = df_csv.dropna()
+print("CSV DataFrame after dropping rows with null values:")
+print(df_csv_no_nulls)
+
+df_csv_filled = df_csv.fillna("N/A")
+print("CSV DataFrame after filling null values with 'N/A':")
+print(df_csv_filled)
