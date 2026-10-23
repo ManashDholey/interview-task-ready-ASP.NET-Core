@@ -327,4 +327,12 @@ print("Series from a list:")
 ages = pd.Series([25, 30, 35], name="Age")
 print(ages)
 
+# Read a CSV file into a DataFrame and display the first five rows.
+print("--------------------------------:Reading CSV into DataFrame:----------------------------------------")
+df_csv = pd.read_csv("companies.csv")
+print(df_csv.head())
+
+unique_df = df_csv.value_counts()
+print("Unique value counts in the CSV DataFrame:")
+print(unique_df)
 
