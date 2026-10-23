@@ -30,7 +30,7 @@ def power(base, exponent):
 print(power(2, 5))    # 32
 print(power(2, -3))   # 0.125
 print(power(5, 0))    # 1
-
+#Count the frequency of each element in a list.
 numbers = [1, 2, 3, 2, 4, 1, 5,4,6,9,21]
 dupli = {}
 for num in numbers:
@@ -38,6 +38,7 @@ for num in numbers:
 print(dupli)    
 duplicates = {num: count for num, count in dupli.items() if count > 1}
 print(duplicates)
+#Find the second-largest distinct number in a list without sorting it.
 max_number = numbers[0]
 secomd_max = 0
 for num in numbers:
@@ -49,4 +50,15 @@ for num in numbers:
 
 print("Max number:", max_number)
 print("Second max number:", secomd_max)
+# Remove duplicates from a list while preserving the original order.
+unique_list = list(dict.fromkeys(numbers))
+print(unique_list)
 
+seen = []
+unique_numbers = []
+for num in numbers:
+    if num not in seen:
+        seen.append(num)
+        unique_numbers.append(num)
+#print(seen)
+print(unique_numbers)
