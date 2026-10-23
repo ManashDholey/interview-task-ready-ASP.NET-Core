@@ -114,3 +114,22 @@ def is_prime(n):
 print(is_prime(2))   # True
 print(is_prime(4))   # False
 print(is_prime(17))  # True
+
+#Write a function to calculate factorial using both iteration and recursion.
+def factorial_iterative(n):
+    if n < 0:
+        return None
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+
+def factorial_recursive(n):
+    if n < 0:
+        return None
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial_recursive(n - 1)
+
+print(factorial_iterative(5))  # 120
+print(factorial_recursive(6))  # 720
