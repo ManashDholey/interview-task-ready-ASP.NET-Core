@@ -30,3 +30,12 @@ def power(base, exponent):
 print(power(2, 5))    # 32
 print(power(2, -3))   # 0.125
 print(power(5, 0))    # 1
+
+numbers = [1, 2, 3, 2, 4, 1, 5]
+dupli = {}
+for num in numbers:
+    dupli[num] = dupli.get(num,0) +1
+#print(dupli)    
+duplicates = {num: count for num, count in dupli.items() if count > 1}
+print(duplicates)
+
