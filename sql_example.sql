@@ -81,7 +81,7 @@ SELECT * FROM Result WHERE RankSalary =3
 ;WITH Result1 AS (
 SELECT Salary , ROW_NUMBER() over (order by Salary) as RankSalary FROM Employees
 )
-
+SELECT * FROM Result1 WHERE RankSalary =3
 
 CREATE OR ALTER PROCEDURE dbo.GetTop10CustomersByPurchase
 (
@@ -135,7 +135,58 @@ BEGIN
 
     END CATCH;
 END;
+
+CREATE OR ALTER PROCEDURE dbo.GetProductDetails
+(
+    @ProductName NVARCHAR(150) = NULL,
+    @Category    NVARCHAR(100) = NULL,
+    @MinPrice    DECIMAL(18,2) = NULL,
+    @MaxPrice    DECIMAL(18,2) = NULL,
+    @IsActive    BIT = NULL
+)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    BEGIN TRY
+
+        -- Validate input
+        IF @MinPrice IS NOT NULL
+           AND @MaxPrice IS NOT NULL
+           AND @MinPrice > @MaxPrice
+        BEGIN
+            THROW 50001, 'Minimum price cannot exceed maximum price.', 1;
+        END;
+
+        SELECT
+            p.ProductId,
+            p.ProductName,
+            p.Category,
+            p.Price,
+            p.Stock,
+            p.IsActive,
+            p.CreatedDate
+        FROM dbo.Products AS p
+        WHERE
+            (@ProductName IS NULL
+                OR p.ProductName LIKE '%' + @ProductName + '%')
+            AND (@Category IS NULL
+                OR p.Category = @Category)
+            AND (@MinPrice IS NULL
+                OR p.Price >= @MinPrice)
+            AND (@MaxPrice IS NULL
+                OR p.Price <= @MaxPrice)
+            AND (@IsActive IS NULL
+                OR p.IsActive = @IsActive)
+        ORDER BY p.ProductName
+        OPTION (RECOMPILE);
+
+    END TRY
+    BEGIN CATCH
+        THROW;
+    END CATCH;
+END;
     
-SELECT * FROM Result1 WHERE RankSalary =3
+
 
 
