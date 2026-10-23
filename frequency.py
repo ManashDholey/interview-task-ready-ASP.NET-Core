@@ -74,7 +74,12 @@ print(merged)
 string = "Manash Dholey"
 reversed_string = ""
 for char in string:
-    print(char)
+    #print(char)
     reversed_string = char + reversed_string
     #print(reversed_string)
 print(reversed_string)
+plan = "racecar"
+#Check whether a string is a palindrome, ignoring spaces and letter case.
+cleaned_string = "".join(char.lower() for char in plan if char.isalnum())
+is_palindrome = cleaned_string == cleaned_string[::-1]
+print(is_palindrome)
