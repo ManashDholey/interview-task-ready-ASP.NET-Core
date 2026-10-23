@@ -62,3 +62,11 @@ for num in numbers:
         unique_numbers.append(num)
 #print(seen)
 print(unique_numbers)
+# Given two dictionaries, merge them and add the values when keys overlap.
+a = {"sales": 100, "marketing": 200}
+b = {"sales": 150, "finance": 300}
+merged = a.copy()
+for key, value in b.items():
+    merged[key] = merged.get(key, 0) + value
+
+print(merged)
