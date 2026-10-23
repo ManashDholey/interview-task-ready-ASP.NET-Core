@@ -246,3 +246,30 @@ with open("logs.1787983461746.json", "r") as file:
     file.close()
 print(data)
 print(type(data))  # Output:  <class 'list'>
+
+# Given the following JSON, extract the names of all employees whose salary exceeds 50,000.
+print("--------------------------------:Extracting employees with salary > 50000:----------------------------------------")
+data_json = {
+    "employees": [
+        {"name": "Amit", "salary": 45000},
+        {"name": "Priya", "salary": 65000},
+        {"name": "Rahul", "salary": 75000},
+        {"name": "Priya3", "salary": 61000},
+        {"name": "Rahul3", "salary": 72000},
+        {"name": "Priya2", "salary": 68000},
+        {"name": "Rahul2", "salary": 76000},
+        {"name": "Priya1", "salary": 6000},
+        {"name": "Rahul1", "salary": 7000}
+    ]
+}
+print(data_json["employees"][0]["name"])
+print(data_json["employees"][0]["salary"])
+print(data_json["employees"][1])
+print(data_json["employees"][2])
+print(data_json["employees"][3])
+data_list = data_json["employees"]
+print(data_list)
+print(type(data_list))
+for employee in data_json["employees"]:
+    if employee["salary"] > 50000:
+        print(employee["name"])
