@@ -83,3 +83,9 @@ plan = "racecar"
 cleaned_string = "".join(char.lower() for char in plan if char.isalnum())
 is_palindrome = cleaned_string == cleaned_string[::-1]
 print(is_palindrome)
+#Count the occurrences of each character in a string.
+char_count_string = "occurrences of each"
+char_count = {}
+for char in char_count_string:
+    char_count[char] = char_count.get(char, 0) + 1
+print(char_count)
