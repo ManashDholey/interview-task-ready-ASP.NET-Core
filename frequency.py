@@ -357,3 +357,28 @@ print(df_csv_no_nulls)
 df_csv_filled = df_csv.fillna("N/A")
 print("CSV DataFrame after filling null values with 'N/A':")
 print(df_csv_filled)
+#Given a DataFrame containing CustomerId and Amount, calculate total sales for each customer.
+df_sales = pd.read_csv("sales_one.csv")
+print("Sales DataFrame:")
+print(df_sales)
+result = (
+    df_sales.groupby("CustomerId", as_index=False)["Amount"]
+      .sum()
+      .rename(columns={"Amount": "TotalSales"})
+)
+
+print(result)
+# Explain the difference between loc[] and iloc[].
+print("--------------------------------:loc[] vs iloc[]:----------------------------------------")
+print("Using loc[] to select rows by label:")
+print(df_csv.loc[0])
+print("Using iloc[] to select rows by integer position:")
+print(df_csv.iloc[0])
+print("Using loc[] to select a range of rows by label:")
+print(df_csv.loc[0:1])
+print("Using iloc[] to select a range of rows by integer position:")
+print(df_csv.iloc[0:2])
+print("Using loc[] to select specific columns by label:")
+print(df_csv.loc[:, ["name", "careers_url"]])
+print("Using iloc[] to select specific columns by integer position:")
+print(df_csv.iloc[:, [0, 2]])
