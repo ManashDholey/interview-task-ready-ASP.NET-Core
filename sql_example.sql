@@ -5,7 +5,7 @@ FROM Transactions
 WHERE TransactionDate >= DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
   AND TransactionDate < DATEADD(MONTH, 1, DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1))
 GROUP BY CustomerId;
-
+GO
 -- Replace 3 with your desired 'N' value
 WITH RankedSalaries AS (
     SELECT 
@@ -23,7 +23,7 @@ Where DATEDIFF(MONTH, HireDate, GETDATE()) Between 1 and 6
 
 CREATE NONCLUSTERED INDEX IX_Employees3_HireDate 
 ON dbo.Employees3 (HireDate);
-
+GO
 SELECT * 
 FROM Employees3 
 WHERE HireDate >= DATEADD(MONTH, -6, CAST(GETDATE() AS DATE))
@@ -70,19 +70,19 @@ SELECT * FROM Result WHERE RankSalary =3
 GO
 SELECT Max(Salary) AS Salary FROM Employees 
 WHERE Salary <(SELECT Max(Salary) FROM Employees)
-
+GO
 SELECT Top 1  Salary  FROM ( SELECT DISTINCT TOP 2 Salary FROM Employees ORDER BY Salary DESC) AS Result ORDER BY Salary  
-
+GO
 ;WITH Result AS (
 SELECT Salary , DENSE_RANK() over (order by Salary) as RankSalary FROM Employees
 )
 SELECT * FROM Result WHERE RankSalary =3
-
+GO
 ;WITH Result1 AS (
 SELECT Salary , ROW_NUMBER() over (order by Salary) as RankSalary FROM Employees
 )
 SELECT * FROM Result1 WHERE RankSalary =3
-
+GO
 CREATE OR ALTER PROCEDURE dbo.GetTop10CustomersByPurchase
 (
     @StartDate DATE,
@@ -135,7 +135,7 @@ BEGIN
 
     END CATCH;
 END;
-
+GO
 CREATE OR ALTER PROCEDURE dbo.GetProductDetails
 (
     @ProductName NVARCHAR(150) = NULL,
