@@ -236,7 +236,7 @@ import json
 json_string = '{"name": "Alice", "age": 30, "city": "New York"}'
 data = json.loads(json_string)
 print(data)
-print(type(data))  # Output: <class 'dict'>
+print("loads for dictionary:",type(data))  # Output: <class 'dict'>
 # What is the difference between json.load() and json.loads()?
 print("json.load() reads from a file object and parses the JSON content directly.")
 print("json.loads() parses a JSON string into a Python dictionary.")
@@ -245,7 +245,7 @@ with open("logs.1787983461746.json", "r") as file:
     data = json.load(file)
     file.close()
 print(data)
-print(type(data))  # Output:  <class 'list'>
+print("load method for list:",type(data))  # Output:  <class 'list'>
 
 # Given the following JSON, extract the names of all employees whose salary exceeds 50,000.
 print("--------------------------------:Extracting employees with salary > 50000:----------------------------------------")
