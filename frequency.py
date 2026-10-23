@@ -142,3 +142,73 @@ def example_function(*args, **kwargs):
     print("Keyword arguments:", kwargs)
 
 example_function(1, 2, 3, a=4, b=5)
+
+# Explain mutable and immutable objects in Python. What is the difference between a list and a tuple?
+# Mutable objects can be changed after creation, while immutable objects cannot.
+# Lists are mutable, meaning their elements can be modified.
+# Tuples are immutable, meaning their elements cannot be modified after creation.   
+
+#What is the difference between shallow copy and deep copy?
+# A shallow copy creates a new object but does not create copies of nested objects; it references the original nested objects.
+# A deep copy creates a new object and recursively copies all nested objects, creating independent copies.
+# Explain try, except, else, and finally with an example
+try:
+    result = 10 / 2
+except ZeroDivisionError:
+    print("Error: Division by zero.")
+else:
+    print("Division successful. Result:", result)
+finally:
+    print("Execution completed.")
+# How do you create and raise a custom exception?
+# Define a custom exception class.
+class CustomError(Exception):
+    pass
+
+# Raise the custom exception.
+try:
+    raise CustomError("This is a custom error message.")
+except CustomError as e:
+    print("Caught custom exception:", e)
+# What is the difference between raise and return?    
+# The raise statement is used to trigger an exception, which interrupts the normal flow of the program.
+# The return statement is used to exit a function and optionally pass a value back to the caller.
+
+def example_raise_return(x):
+    if x < 0:
+        raise ValueError("Negative value not allowed.")
+    return x * 2
+
+try:
+    print(example_raise_return(5))   # 10
+    print(example_raise_return(-3))  # Raises ValueError
+except ValueError as e:
+    print("Caught exception:", e)
+# How would you handle invalid input while processing thousands of records without stopping the entire program?    
+# You can handle invalid input by using try-except blocks within a loop that processes each record.
+# This way, errors for individual records are caught and logged, while the loop continues processing the remaining records.
+
+records = [10, 5, 0, -3, 8]
+for record in records:
+    try:
+        if record < 0:
+            raise ValueError("Negative value not allowed.")
+        result = 100 / record
+    except Exception as e:
+        print(f"Error processing record {record}: {e}")
+    else:
+        print(f"Processed record {record}: Result = {result}")
+# How would you handle invalid input while processing thousands of records without stopping the entire program?
+# You can use a similar approach as above, with try-except blocks inside the loop to catch and log errors for individual records, allowing the loop to continue processing the remaining records.
+# What is the difference between an iterator and a generator? Why is a generator useful for large datasets?
+# An iterator is an object that implements the __iter__() and __next__() methods, allowing sequential access to elements.
+# A generator is a special type of iterator created using a function with the yield statement.
+# Generators are useful for large datasets because they produce items on-the-fly and do not store the entire dataset in memory.
+
+def large_dataset_generator(n):
+    for i in range(n):
+        yield i
+
+for item in large_dataset_generator(5):
+    print(item)
+    
