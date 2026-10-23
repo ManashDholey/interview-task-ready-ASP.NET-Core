@@ -335,4 +335,12 @@ print(df_csv.head())
 unique_df = df_csv.value_counts()
 print("Unique value counts in the CSV DataFrame:")
 print(unique_df)
-
+# How do you find and remove duplicate rows in a DataFrame?
+print("--------------------------------:Finding and Removing Duplicates:----------------------------------------")
+duplicates = df_csv.duplicated()
+print("Duplicate rows in the CSV DataFrame:")
+print(duplicates)
+print(len(duplicates))
+df_csv_no_duplicates = df_csv.drop_duplicates()
+print("CSV DataFrame after removing duplicate rows:")
+print(df_csv_no_duplicates)
