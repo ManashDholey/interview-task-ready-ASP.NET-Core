@@ -304,3 +304,27 @@ with open("output.json", "r") as file:
     file.close()
 print(data_loaded)
 
+#What is Pandas, and how does a DataFrame differ from a Series?
+print("--------------------------------:Pandas DataFrame vs Series:----------------------------------------")
+import pandas as pd
+
+# Creating a DataFrame
+data = {
+    "Name": ["Alice", "Bob", "Charlie"],
+    "Age": [25, 30, 35],
+    "City": ["New York", "Los Angeles", "Chicago"]
+}
+df = pd.DataFrame(data)
+print("DataFrame:")
+print(df)
+
+# Creating a Series
+series = pd.Series([1, 2, 3, 4, 5])
+print("Series:")
+print(series)
+print("Series from a list:")
+# Creating a Series from a list
+ages = pd.Series([25, 30, 35], name="Age")
+print(ages)
+
+
