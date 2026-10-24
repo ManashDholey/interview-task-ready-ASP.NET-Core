@@ -269,3 +269,9 @@ WHERE DepartmentID = 4;
 -- 5. Consider query hints or restructuring queries for better performance.
 -- 6. Monitor wait statistics to identify resource contention (CPU, I/O, locks).
 -- 7. Test the optimized procedure and compare execution times to ensure improvements.
+-- A SARGable query (short for Search ARGument ABle) uses a condition in a WHERE or JOIN clause that allows the 
+-- database engine to use an index efficiently via an Index Seek instead of scanning the entire table.
+-- Examples of SARGable queries:
+-- WHERE HireDate >= '2026-01-01'
+-- WHERE LastName LIKE 'Smit%'
+-- WHERE EmployeeID = 105
