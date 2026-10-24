@@ -275,3 +275,29 @@ WHERE DepartmentID = 4;
 -- WHERE HireDate >= '2026-01-01'
 -- WHERE LastName LIKE 'Smit%'
 -- WHERE EmployeeID = 105
+
+-- Find the top two employees by salary in each department, including ties.
+WITH RankedEmployees AS (
+    SELECT 
+        department_id,
+        employee_id,
+        first_name,
+        last_name,
+        salary,
+        DENSE_RANK() OVER (
+            PARTITION BY department_id 
+            ORDER BY salary DESC
+        ) AS dept_rank
+    FROM employees
+)
+SELECT 
+    department_id,
+    employee_id,
+    first_name,
+    last_name,
+    salary,
+    dept_rank
+FROM RankedEmployees
+WHERE dept_rank <= 2
+ORDER BY department_id, dept_rank, employee_id;
+
