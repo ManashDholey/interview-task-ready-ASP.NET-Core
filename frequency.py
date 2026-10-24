@@ -140,6 +140,9 @@ print(factorial_recursive(6))  # 720
 def example_function(*args, **kwargs):
     print("Positional arguments:", args)
     print("Keyword arguments:", kwargs)
+    print("type of args:", type(args))  # type of args: <class 'tuple'>
+    print("type of kwargs:", type(kwargs))  # type of kwargs: <class 'dict'>
+    print("--------------------------------------------------------Completed Example Function Call---------------------------------------------------------------")
 
 example_function(1, 2, 3, a=4, b=5)
 
