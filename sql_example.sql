@@ -215,3 +215,46 @@ SET STATISTICS TIME OFF;
 -- • Look at the logical reads (8KB pages read from memory) for each table referenced.
 -- • Identify heavy table access by finding which specific object name shows a high scan count and massive logical read numbers.
 -- • Check for Worktables/Workfiles usage in tempdb, which signals expensive hashes, spools, or sorts
+
+-- An Index Seek and an Index Scan are two different ways a database query optimizer (like in SQL Server)
+-- retrieves data using a B-tree index structure.
+
+-- Index Seek
+
+-- • How it works: The database uses the index B-tree to navigate directly to the specific starting point of the matching data and reads only the qualifying rows and pages.
+-- • Cost: Proportional to the number of matching rows returned, not the total size of the table.
+-- • Best used for: Selective queries that fetch a small percentage of rows (typically under 10% to 15% of the table).
+-- • Example: WHERE CustomerID = 10248 (jumps straight to customer 10248)
+
+-- Index Scan
+
+-- • How it works: The database reads through all or most of the entries in an index sequentially from the first page to the last page, regardless of whether every entry matches the filter.
+-- • Cost: Proportional to the total number of rows/entries in the index.
+-- • Best used for: Non-selective queries, small tables, or situations where a large percentage (e.g., over 50% to 90%) of the table qualifies, or when data must be returned in a specific index order (such as an ORDER BY clause).
+-- • Example: WHERE LastName LIKE '%son' (a leading wildcard stops the engine from using a seek, forcing a scan).
+-- Example query that may result in an Index Scan
+SELECT * 
+FROM [DB_Interview].[dbo].[EmployeesTest];
+-- Triggers an Index Scan
+SELECT EmployeeID, FirstName 
+FROM [DB_Interview].[dbo].[EmployeesTest] 
+WHERE YEAR(HireDate) = 2026;
+-- Triggers an Index Scan
+SELECT EmployeeID 
+FROM [DB_Interview].[dbo].[EmployeesTest] 
+WHERE LastName LIKE '%Smith';
+-- Examples of Queries Triggering an Index Seek
+CREATE NONCLUSTERED INDEX IX_Employees_DepartmentID 
+ON [DB_Interview].[dbo].[EmployeesTest] (DepartmentID);
+-- Triggers an Index Seek
+SELECT EmployeeID, LastName, FirstName 
+FROM [DB_Interview].[dbo].[EmployeesTest] 
+WHERE EmployeeID = 105;
+-- Triggers an Index Seek
+SELECT EmployeeID, DepartmentID 
+FROM [DB_Interview].[dbo].[EmployeesTest] 
+WHERE DepartmentID = 4;
+-- Triggers an Index Seek
+-- WHERE HireDate >= '2026-01-01'
+-- WHERE LastName LIKE 'Smit%'
+-- WHERE EmployeeID = 105
