@@ -350,3 +350,25 @@ SELECT
     HierarchyPath
 FROM EmployeeHierarchy
 ORDER BY HierarchyPath;
+
+-- Write a query using a CTE to find the top three highest-paid employees in each department.
+WITH RankedEmployees AS (
+    SELECT 
+        EmployeeID,
+        EmployeeName,
+        DepartmentID,
+        Salary,
+        DENSE_RANK() OVER (
+            PARTITION BY DepartmentID 
+            ORDER BY Salary DESC
+        ) AS SalaryRank
+    FROM Employees
+)
+SELECT 
+    DepartmentID,
+    EmployeeID,
+    EmployeeName,
+    Salary
+FROM RankedEmployees
+WHERE SalaryRank <= 3
+ORDER BY DepartmentID, SalaryRank;
