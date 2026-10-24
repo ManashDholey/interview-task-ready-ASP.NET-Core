@@ -372,3 +372,6 @@ SELECT
 FROM RankedEmployees
 WHERE SalaryRank <= 3
 ORDER BY DepartmentID, SalaryRank;
+-- What is a Common Table Expression (CTE), and how does it differ from a temporary table?
+-- A Common Table Expression (CTE) is a temporary, named result set defined with a WITH clause that 
+-- you can reference within a single SQL statement.
