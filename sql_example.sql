@@ -404,3 +404,13 @@ WHERE NOT EXISTS (
     WHERE e.department_id = d.department_id
 );
 
+-- Given Employees(EmployeeId, EmployeeName, DepartmentId, Salary) and Departments(DepartmentId, DepartmentName), write a query to display all employees with their department names,
+-- including employees who are not assigned to a department.
+SELECT 
+    e.EmployeeId, 
+    e.EmployeeName, 
+    COALESCE(d.DepartmentName, 'No Department Assigned') AS DepartmentName
+FROM 
+    Employees e
+LEFT JOIN 
+    Departments d ON e.DepartmentId = d.DepartmentId;
