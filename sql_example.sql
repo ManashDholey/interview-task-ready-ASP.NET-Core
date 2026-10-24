@@ -301,3 +301,10 @@ FROM RankedEmployees
 WHERE dept_rank <= 2
 ORDER BY department_id, dept_rank, employee_id;
 
+-- The core difference between ROW_NUMBER(), RANK(), and DENSE_RANK() lies in 
+--how they handle duplicate values (ties) in your sorted data.
+-- • ROW_NUMBER() ignores ties completely and assigns a unique, 
+-- sequential number to every single row.
+-- • RANK() assigns the same number to identical values, but it skips subsequent numbers, leaving a gap.
+-- • DENSE_RANK() assigns the same number to identical values, but it does not skip numbers, 
+-- keeping the sequence compact and gap-free.
