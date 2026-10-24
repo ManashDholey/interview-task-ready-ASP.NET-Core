@@ -319,3 +319,34 @@ ORDER BY department_id, dept_rank, employee_id;
 -- the query. It cannot be referenced outside its query.
 -- • A subquery is a query nested inside another query (e.g., in the SELECT, WHERE, or FROM clause).
 -- It can return a single value, a set of values, or a table, depending on its context.
+-- Write a recursive CTE to display an employee hierarchy using EmployeeId and ManagerId.
+WITH RECURSIVE EmployeeHierarchy AS (
+    -- 1. Anchor Member: Find top-level managers (who have no manager)
+    SELECT 
+        EmployeeId, 
+        ManagerId, 
+        1 AS Level,
+        CAST(EmployeeId AS VARCHAR(1000)) AS HierarchyPath
+    FROM Employees
+    WHERE ManagerId IS NULL
+
+    UNION ALL
+
+    -- 2. Recursive Member: Join the anchor result with subordinates
+    SELECT 
+        e.EmployeeId, 
+        e.ManagerId, 
+        eh.Level + 1 AS Level,
+        CAST(eh.HierarchyPath + ' -> ' + CAST(e.EmployeeId AS VARCHAR(10)) AS VARCHAR(1000)) AS HierarchyPath
+    FROM Employees e
+    INNER JOIN EmployeeHierarchy eh 
+        ON e.ManagerId = eh.EmployeeId
+)
+-- 3. Final Query: Pull all data sorted by the organizational path
+SELECT 
+    Level,
+    EmployeeId, 
+    ManagerId,
+    HierarchyPath
+FROM EmployeeHierarchy
+ORDER BY HierarchyPath;
