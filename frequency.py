@@ -382,3 +382,46 @@ print("Using loc[] to select specific columns by label:")
 print(df_csv.loc[:, ["name", "careers_url"]])
 print("Using iloc[] to select specific columns by integer position:")
 print(df_csv.iloc[:, [0, 2]])
+#How do you call a REST API using Python's requests library?
+print("--------------------------------:Calling REST API:----------------------------------------")
+import requests
+url = "https://jsonplaceholder.typicode.com/posts/1"
+response = requests.get(url)
+print("Response from the REST API:")
+print(response.json())
+print("--------------------------------:Calling REST API by id:----------------------------------------")
+url = "https://jsonplaceholder.typicode.com/posts/2"
+response = requests.get(url)
+print("Response from the REST API by id:")
+print(response.json())
+print("--------------------------------:Fatch All Posts:----------------------------------------")
+url = "https://jsonplaceholder.typicode.com/posts"
+response = requests.get(url)
+print("Response from the REST API for all posts:")
+print(response.json())
+print("--------------------------------:Create a Post:----------------------------------------")
+url = "https://jsonplaceholder.typicode.com/posts"
+data = {
+    "title": "foo",
+    "body": "bar",
+    "userId": 1
+}
+response = requests.post(url, json=data)
+print("Response from the REST API for creating a post:")
+print(response.json())
+print("--------------------------------:Update a Post:----------------------------------------")
+url = "https://jsonplaceholder.typicode.com/posts/1"
+data = {
+    "title": "updated title foo",
+    "body": "updated body bar",
+    "userId": 1
+}
+response = requests.put(url, json=data)
+print("Response from the REST API for updating a post:")
+print(response.json())
+print("--------------------------------:Delete a Post:----------------------------------------")
+url = "https://jsonplaceholder.typicode.com/posts/1"
+response = requests.delete(url)
+print("Response from the REST API for deleting a post:")
+print(response.status_code)
+print("--------------------------------:End of REST API Calls:----------------------------------------")
