@@ -486,3 +486,6 @@ except requests.exceptions.Timeout as timeout_err:
 except requests.exceptions.RequestException as req_err:
     print(f"An error occurred: {req_err}")
 print("--------------------------------:End of REST API Calls:----------------------------------------")
+#How would you securely store API keys and access tokens?
+# KMS (Key Management Service) can be used to securely store and manage API keys and access tokens. It provides encryption and access control mechanisms to ensure that sensitive credentials are protected.
+# for access token i would like to use cookies to store them securely on the client side, ensuring they are transmitted only over HTTPS and have appropriate expiration and security flags set.
