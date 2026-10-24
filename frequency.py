@@ -383,22 +383,53 @@ print(df_csv.loc[:, ["name", "careers_url"]])
 print("Using iloc[] to select specific columns by integer position:")
 print(df_csv.iloc[:, [0, 2]])
 #How do you call a REST API using Python's requests library?
+#How would you handle HTTP errors, timeouts, and connection failures?
 print("--------------------------------:Calling REST API:----------------------------------------")
 import requests
-url = "https://jsonplaceholder.typicode.com/posts/1"
-response = requests.get(url)
-print("Response from the REST API:")
-print(response.json())
+try:
+    url = "https://jsonplaceholder.typicode.com/posts/1"
+    response = requests.get(url, timeout=5)
+    response.raise_for_status()
+    print("Response from the REST API:")
+    print(response.json())
+except requests.exceptions.HTTPError as http_err:
+    print(f"HTTP error occurred: {http_err}")
+except requests.exceptions.ConnectionError as conn_err:
+    print(f"Connection error occurred: {conn_err}")
+except requests.exceptions.Timeout as timeout_err:
+    print(f"Timeout error occurred: {timeout_err}")
+except requests.exceptions.RequestException as req_err:
+    print(f"An error occurred: {req_err}")
 print("--------------------------------:Calling REST API by id:----------------------------------------")
 url = "https://jsonplaceholder.typicode.com/posts/2"
-response = requests.get(url)
-print("Response from the REST API by id:")
-print(response.json())
+try:
+    response = requests.get(url, timeout=5)
+    response.raise_for_status()
+    print("Response from the REST API by id:")
+    print(response.json())
+except requests.exceptions.HTTPError as http_err:
+    print(f"HTTP error occurred: {http_err}")
+except requests.exceptions.ConnectionError as conn_err:
+    print(f"Connection error occurred: {conn_err}")
+except requests.exceptions.Timeout as timeout_err:
+    print(f"Timeout error occurred: {timeout_err}")
+except requests.exceptions.RequestException as req_err:
+    print(f"An error occurred: {req_err}")
 print("--------------------------------:Fatch All Posts:----------------------------------------")
 url = "https://jsonplaceholder.typicode.com/posts"
-response = requests.get(url)
-print("Response from the REST API for all posts:")
-print(response.json())
+try:
+    response = requests.get(url, timeout=5)
+    response.raise_for_status()
+    print("Response from the REST API for all posts:")
+    print(response.json())
+except requests.exceptions.HTTPError as http_err:
+    print(f"HTTP error occurred: {http_err}")
+except requests.exceptions.ConnectionError as conn_err:
+    print(f"Connection error occurred: {conn_err}")
+except requests.exceptions.Timeout as timeout_err:
+    print(f"Timeout error occurred: {timeout_err}")
+except requests.exceptions.RequestException as req_err:
+    print(f"An error occurred: {req_err}")
 print("--------------------------------:Create a Post:----------------------------------------")
 url = "https://jsonplaceholder.typicode.com/posts"
 data = {
@@ -406,9 +437,19 @@ data = {
     "body": "bar",
     "userId": 1
 }
-response = requests.post(url, json=data)
-print("Response from the REST API for creating a post:")
-print(response.json())
+try:
+    response = requests.post(url, json=data, timeout=5)
+    response.raise_for_status()
+    print("Response from the REST API for creating a post:")
+    print(response.json())
+except requests.exceptions.HTTPError as http_err:
+    print(f"HTTP error occurred: {http_err}")
+except requests.exceptions.ConnectionError as conn_err:
+    print(f"Connection error occurred: {conn_err}")
+except requests.exceptions.Timeout as timeout_err:
+    print(f"Timeout error occurred: {timeout_err}")
+except requests.exceptions.RequestException as req_err:
+    print(f"An error occurred: {req_err}")
 print("--------------------------------:Update a Post:----------------------------------------")
 url = "https://jsonplaceholder.typicode.com/posts/1"
 data = {
@@ -416,12 +457,32 @@ data = {
     "body": "updated body bar",
     "userId": 1
 }
-response = requests.put(url, json=data)
-print("Response from the REST API for updating a post:")
-print(response.json())
+try:
+    response = requests.put(url, json=data, timeout=5)
+    response.raise_for_status()
+    print("Response from the REST API for updating a post:")
+    print(response.json())
+except requests.exceptions.HTTPError as http_err:
+    print(f"HTTP error occurred: {http_err}")
+except requests.exceptions.ConnectionError as conn_err:
+    print(f"Connection error occurred: {conn_err}")
+except requests.exceptions.Timeout as timeout_err:
+    print(f"Timeout error occurred: {timeout_err}")
+except requests.exceptions.RequestException as req_err:
+    print(f"An error occurred: {req_err}")
 print("--------------------------------:Delete a Post:----------------------------------------")
 url = "https://jsonplaceholder.typicode.com/posts/1"
-response = requests.delete(url)
-print("Response from the REST API for deleting a post:")
-print(response.status_code)
+try:
+    response = requests.delete(url, timeout=5)
+    response.raise_for_status()
+    print("Response from the REST API for deleting a post:")
+    print(response.status_code)
+except requests.exceptions.HTTPError as http_err:
+    print(f"HTTP error occurred: {http_err}")
+except requests.exceptions.ConnectionError as conn_err:
+    print(f"Connection error occurred: {conn_err}")
+except requests.exceptions.Timeout as timeout_err:
+    print(f"Timeout error occurred: {timeout_err}")
+except requests.exceptions.RequestException as req_err:
+    print(f"An error occurred: {req_err}")
 print("--------------------------------:End of REST API Calls:----------------------------------------")
