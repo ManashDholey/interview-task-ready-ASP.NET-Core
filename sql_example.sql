@@ -308,3 +308,14 @@ ORDER BY department_id, dept_rank, employee_id;
 -- • RANK() assigns the same number to identical values, but it skips subsequent numbers, leaving a gap.
 -- • DENSE_RANK() assigns the same number to identical values, but it does not skip numbers, 
 -- keeping the sequence compact and gap-free.
+-- Can a CTE be referenced multiple times? Does SQL Server automatically materialize it?
+-- • A CTE can be referenced multiple times within the same query, but it is not automatically materialized.
+-- • SQL Server treats a CTE as a temporary result set that is inlined into the query, similar to a derived table.
+-- • If you need to materialize the result for performance reasons, consider using a temporary table or table variable instead.
+-- What is the difference between a CTE, a derived table, and a subquery?
+-- • A CTE (Common Table Expression) is a named temporary result set that can be referenced 
+-- within the same query. It improves readability and can be recursive.
+-- • A derived table is a subquery in the FROM clause that acts as a temporary table for the duration of 
+-- the query. It cannot be referenced outside its query.
+-- • A subquery is a query nested inside another query (e.g., in the SELECT, WHERE, or FROM clause).
+-- It can return a single value, a set of values, or a table, depending on its context.
