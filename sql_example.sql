@@ -221,18 +221,21 @@ SET STATISTICS TIME OFF;
 
 -- Index Seek
 
--- • How it works: The database uses the index B-tree to navigate directly to the specific starting point of the matching data and reads only the qualifying rows and pages.
+-- • How it works: The database uses the index B-tree to navigate directly to the specific starting point
+-- of the matching data and reads only the qualifying rows and pages.
 -- • Cost: Proportional to the number of matching rows returned, not the total size of the table.
--- • Best used for: Selective queries that fetch a small percentage of rows (typically under 10% to 15% of the table).
+-- • Best used for: Selective queries that fetch a small percentage of rows 
+--   (typically under 10% to 15% of the table).
 -- • Example: WHERE CustomerID = 10248 (jumps straight to customer 10248)
 
 -- Index Scan
 
--- • How it works: The database reads through all or most of the entries in an index sequentially from the first page to the last page, regardless of whether every entry matches the filter.
+-- • How it works: The database reads through all or most of the entries in an index sequentially 
+--   from the first page to the last page, regardless of whether every entry matches the filter.
 -- • Cost: Proportional to the total number of rows/entries in the index.
 -- • Best used for: Non-selective queries, small tables, or situations where a large percentage (e.g., over 50% to 90%) of the table qualifies, or when data must be returned in a specific index order (such as an ORDER BY clause).
 -- • Example: WHERE LastName LIKE '%son' (a leading wildcard stops the engine from using a seek, forcing a scan).
--- Example query that may result in an Index Scan
+--   Example query that may result in an Index Scan
 SELECT * 
 FROM [DB_Interview].[dbo].[EmployeesTest];
 -- Triggers an Index Scan
