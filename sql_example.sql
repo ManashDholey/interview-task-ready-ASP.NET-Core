@@ -375,3 +375,23 @@ ORDER BY DepartmentID, SalaryRank;
 -- What is a Common Table Expression (CTE), and how does it differ from a temporary table?
 -- A Common Table Expression (CTE) is a temporary, named result set defined with a WITH clause that 
 -- you can reference within a single SQL statement.
+-- Find employees whose salary is greater than their department's average salary.
+SELECT name, department, salary
+FROM employees e1
+WHERE salary > (
+    SELECT AVG(salary) 
+    FROM employees e2 
+    WHERE e2.department = e1.department
+);
+
+WITH dept_avg AS (
+    SELECT 
+        name,
+        department,
+        salary,
+        AVG(salary) OVER (PARTITION BY department) AS avg_salary
+    FROM employees
+)
+SELECT name, department, salary, avg_salary
+FROM dept_avg
+WHERE salary > avg_salary;
