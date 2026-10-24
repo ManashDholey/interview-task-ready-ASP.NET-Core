@@ -395,3 +395,12 @@ WITH dept_avg AS (
 SELECT name, department, salary, avg_salary
 FROM dept_avg
 WHERE salary > avg_salary;
+-- Find departments that have no employees.
+SELECT d.department_id, d.department_name
+FROM departments d
+WHERE NOT EXISTS (
+    SELECT 1 
+    FROM employees e 
+    WHERE e.department_id = d.department_id
+);
+
