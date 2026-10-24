@@ -261,3 +261,11 @@ WHERE DepartmentID = 4;
 -- WHERE HireDate >= '2026-01-01'
 -- WHERE LastName LIKE 'Smit%'
 -- WHERE EmployeeID = 105
+-- A stored procedure takes 20 seconds to execute. Explain your step-by-step approach to optimizing it.
+-- 1. Analyze the execution plan to identify bottlenecks (e.g., table scans, index scans, expensive joins).
+-- 2. Check for missing indexes and create appropriate indexes to improve query performance.
+-- 3. Review the query logic for inefficiencies, such as unnecessary joins or subqueries.
+-- 4. Optimize the use of temporary tables and table variables.
+-- 5. Consider query hints or restructuring queries for better performance.
+-- 6. Monitor wait statistics to identify resource contention (CPU, I/O, locks).
+-- 7. Test the optimized procedure and compare execution times to ensure improvements.
