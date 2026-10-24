@@ -194,3 +194,24 @@ END;
   
   SELECT Count(1) FROM [DB_Interview].[dbo].[EmployeesTest];
   SELECT Count(EmployeeId) FROM [DB_Interview].[dbo].[EmployeesTest];
+
+SET STATISTICS TIME ON;
+SET STATISTICS IO ON;
+-- Your Query Here
+SELECT * FROM [DB_Interview].[dbo].[EmployeesTest];
+SET STATISTICS IO OFF;
+SET STATISTICS TIME OFF;
+
+
+-- Analyze STATISTICS TIME
+
+-- • Check the Messages tab for parse, compile, and CPU times.
+-- • Compare CPU time to Elapsed (total) time.
+-- • Spot a parallelism bottleneck if CPU time is significantly higher than elapsed time, meaning multiple threads shared the processing load.
+-- • Spot a wait/blocking bottleneck if elapsed time is much higher than CPU time, meaning the query spent time waiting for resources, locks, or disk I/O.
+
+-- Analyze STATISTICS IO
+
+-- • Look at the logical reads (8KB pages read from memory) for each table referenced.
+-- • Identify heavy table access by finding which specific object name shows a high scan count and massive logical read numbers.
+-- • Check for Worktables/Workfiles usage in tempdb, which signals expensive hashes, spools, or sorts
