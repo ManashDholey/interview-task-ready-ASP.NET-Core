@@ -186,7 +186,11 @@ BEGIN
         THROW;
     END CATCH;
 END;
-    
 
-
-
+-- COUNT(*) targets the entire row structurally, while COUNT(1) evaluates the constant 
+-- integer 1 for every row. Because 1 is never NULL, it counts every single row.    
+-- Counts only the rows where EmployeeId is not NULL.
+  SELECT Count(*) FROM [DB_Interview].[dbo].[EmployeesTest];
+  
+  SELECT Count(1) FROM [DB_Interview].[dbo].[EmployeesTest];
+  SELECT Count(EmployeeId) FROM [DB_Interview].[dbo].[EmployeesTest];
