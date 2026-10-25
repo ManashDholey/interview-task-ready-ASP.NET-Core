@@ -87,3 +87,20 @@ z2 = np.zeros((2, 3))
 print(z2) # print the 2x3 array of zeros
 z3 = np.zeros([5,5])
 print(z3) # print the 5x5 array of zeros
+
+c = np.zeros([5,5],complex)
+print(c) # print the 5x5 array of complex zeros
+print(c.dtype) # print the data type of the complex array
+
+p = np.ones([5,2,3],int)
+print(p) # print the 5x2x3 array of ones
+print(p.shape) # print the shape of the 5x2x3 array of ones
+print(p.dtype) # print the data type of the 5x2x3 array of ones
+print(p.ndim) # print the number of dimensions of the 5x2x3 array of ones
+print(p.size) # print the total number of elements in the 5x2x3 array of ones
+print(p.dtype) # print the 5x2x3 array of ones again for verification
+print(p.itemsize) # print the size in bytes of each element in the 5x2x3 array of ones
+print(p.nbytes) # print the total size in bytes of the 5x2x3 array of ones
+print(p.transpose()) # print the transposed 5x2x3 array of ones
+print(p.flat) # print the flattened iterator of the 5x2x3 array of ones
+print(list(p.flat)) # print the flattened array as a list for easier visualization
