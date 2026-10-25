@@ -492,3 +492,16 @@ print("--------------------------------:End of REST API Calls:------------------
 #How would you securely store API keys and access tokens?
 # KMS (Key Management Service) can be used to securely store and manage API keys and access tokens. It provides encryption and access control mechanisms to ensure that sensitive credentials are protected.
 # for access token i would like to use cookies to store them securely on the client side, ensuring they are transmitted only over HTTPS and have appropriate expiration and security flags set.
+# write a program to find the least positive integer missing from a list of input integers
+def find_least_missing_positive(nums):
+    nums = set(nums)
+    print(nums) # Debug: print the set of numbers
+    i = 1
+    while i in nums:
+        i += 1
+        print(i) # Debug: print the current value of i
+    return i
+
+# Example usage
+input_list = [3, 4, -1, 1]
+print("Least positive integer missing:", find_least_missing_positive(input_list))
