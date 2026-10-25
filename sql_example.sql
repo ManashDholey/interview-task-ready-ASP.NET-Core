@@ -414,3 +414,93 @@ FROM
     Employees e
 LEFT JOIN 
     Departments d ON e.DepartmentId = d.DepartmentId;
+
+CREATE TABLE contacts (
+  id INT,
+  name VARCHAR(50),
+  phone_number VARCHAR(20)
+);
+
+INSERT INTO contacts VALUES
+(1, 'asdf', '+918476598659'),
+(2, 'kjsdhf', '+9132671'),
+(3, 'iuoui', '+918745266');
+
+SELECT id,name, CONCAT('XXX-XXX-', RIGHT(phone_number, 4)) AS masked_phone FROM contacts
+--Expected Output:
+
+--id | name  | phone_number
+--1 | asdf  | *********659
+--2 | kjsdhf | ******671
+--3 | iuoui | ******266
+
+
+--✅ Question 2: Fill Missing Amounts with Previous Non-Null Value
+--Fill null values in Amount column using the previous available non-null value.
+
+--Sample Data:
+
+CREATE TABLE amounts (
+  ID INT,
+  Amount INT
+);
+
+INSERT INTO amounts VALUES
+(1, 100), (2, 150), (3, NULL),
+(4, 300), (5, NULL), (NULL, 400),
+(7, NULL), (8, NULL), (9, 700);
+
+SELECT
+    a.ID,
+    a.Amount,
+    (
+        SELECT TOP 1 b.Amount
+        FROM amounts b
+        WHERE b.ID <= a.ID
+          AND b.Amount IS NOT NULL
+        ORDER BY b.ID DESC
+    ) AS FilledAmount
+FROM amounts a
+ORDER BY a.ID;
+       
+
+
+--Expected Output:
+
+--ID | Amount
+--1 | 100
+--2 | 150
+--3 | 150
+--4 | 300
+--5 | 300
+--6 | 400
+--7 | 400
+--8 | 400
+--9 | 700
+
+--✅ Question 3: Grouped Transaction Table Analysis
+--A table has Name, Type, Address, and Transaction Date. CONCAT all three columns using space.
+--CATCH NOTE- make sure there are NULL in Type column
+
+--Sample Data:
+
+CREATE TABLE transactions21 (
+  Name VARCHAR(10),
+  typed VARCHAR(10),
+  Address VARCHAR(50),
+  transaction_date DATETIME
+);
+
+INSERT INTO transactions21 (Name, typed, Address, transaction_date) VALUES
+('A', Null, 'Delhi', '2022-07-10 10:00:00'),
+('B',Null , 'Pune', '2022-07-08 10:00:00'),
+('C',Null, 'Goa', '2022-07-08 10:00:00'),
+('D',Null, 'Delhi', '2022-07-08 10:00:00'),
+('E',Null, 'Goa', '2022-07-10 10:00:00');
+
+SELECT
+    CONCAT(Name, ' ', typed, ' ', Address) AS FullDetails,
+    transaction_date
+FROM transactions21;
+
+
