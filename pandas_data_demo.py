@@ -31,3 +31,22 @@ df = pd.DataFrame(data)
 
 # Display the DataFrame
 print(df)
+print(df.shape)
+result = df.loc[(df['Age'] > 25) & (df["Age"]<=30)] 
+print(result)
+
+result_one = df[(df["Age"]>25) & (df["Age"]<=30)] 
+print(result_one)
+
+result_salary_gender = df.groupby("Gender").aggregate(max_salary=("Salary", "max"),median_salary=("Salary", "median"))
+print(result_salary_gender)
+# We use axis=1 because it tells pandas to apply the function row by row instead of column by column.
+# 
+# 1. With axis=1 (Row-by-Row) ➡️
+
+# Pandas feeds the rows into the lambda function one by one as a Series where the index labels are the column headers.
+# • First loop (x is John's data): Looks at x["Age"] (25) and x["Salary"] (50000). Calculates bonus.
+# • Second loop (x is Emma's data): Looks at x["Age"] (28) and x["Salary"] (60000). Calculates bonus.
+# • This is exactly what you want when comparing multiple columns for a single record.
+df["bonus"] = df[["Salary", "Age"]].apply(lambda x: x["Salary"] * 0.1 if x["Age"] > 30 else x["Salary"] * 0.15, axis=1)
+print(df)
