@@ -505,3 +505,5 @@ def find_least_missing_positive(nums):
 # Example usage
 input_list = [3, 4, -1, 1]
 print("Least positive integer missing:", find_least_missing_positive(input_list))
+inp_list = [ 4, -1, 1,5,2,8,9]
+print("Least positive integer missing:", find_least_missing_positive(inp_list))
