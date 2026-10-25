@@ -81,3 +81,9 @@ a_one = np.array([1, 2, 3])
 print(a_one.ndim) # to know the array dimension
 print(a_one.shape) # to know the array shape
 
+z1 = np.zeros(5)
+print(z1) # print the array of zeros
+z2 = np.zeros((2, 3)) 
+print(z2) # print the 2x3 array of zeros
+z3 = np.zeros([5,5])
+print(z3) # print the 5x5 array of zeros
