@@ -244,15 +244,15 @@ def rising_temperature(weather: pd.DataFrame) -> pd.DataFrame:
 
     df = weather.copy()
     df['previous_date'] = df['recordDate'] - pd.Timedelta(days=1)
-
+    print(df) # Debug: print the DataFrame with previous_date column
     previous_day = weather[['recordDate', 'temperature']].copy()
     previous_day = previous_day.rename(columns={
         'recordDate': 'previous_date',
         'temperature': 'previous_temperature'
     })
-
+    print(previous_day) # Debug: print the previous_day DataFrame before merging
     df = df.merge(previous_day, on='previous_date', how='left')
-
+    print(df)
     result = df[df['temperature'] > df['previous_temperature']]
 
     return result[['id']]
