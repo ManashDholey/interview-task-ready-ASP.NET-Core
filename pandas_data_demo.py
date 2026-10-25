@@ -142,7 +142,7 @@ print(world) # print the world DataFrame with appropriate data types
 
 def big_countries(world: pd.DataFrame) -> pd.DataFrame:
     df = world
-    fc = (df["area"] >= 3000000) | (df['population']> 25000000)
+    fc = (df["area"] >= 3000000) | (df['population']>= 25000000)
     df = df[fc]
     return df[["name","population","area"]]
 
