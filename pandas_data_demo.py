@@ -104,3 +104,18 @@ print("Total size in bytes:", p.nbytes) # print the total size in bytes of the 5
 print("Transposed array:", p.transpose()) # print the transposed 5x2x3 array of ones
 print("Flattened iterator:", p.flat) # print the flattened iterator of the 5x2x3 array of ones
 print("Flattened array as list:", list(p.flat)) # print the flattened array as a list for easier visualization
+
+# recycable and reusable array example
+data = [['0', 'Y', 'N'], ['1', 'Y', 'Y'], ['2', 'N', 'Y'], ['3', 'Y', 'Y'], ['4', 'N', 'N']]
+products = pd.DataFrame(data, columns=['product_id', 'low_fats', 'recyclable']).astype({'product_id':'int64', 'low_fats':'category', 'recyclable':'category'})
+print(products) # print the products DataFrame with appropriate data types
+def find_products(products: pd.DataFrame) -> pd.DataFrame:
+    df = products
+    fc = (df['low_fats'] == 'Y') & (df['recyclable'] == 'Y')
+    df = df[fc]
+    return df[['product_id']]
+
+# Find products that are both low fats and recyclable
+filtered_products = find_products(products)
+print("Filtered products:")
+print(filtered_products)
