@@ -80,7 +80,7 @@ print(empty_df)
 a_one = np.array([1, 2, 3])
 print(a_one.ndim) # to know the array dimension
 print(a_one.shape) # to know the array shape
-
+print(a_one.dtype) # to know the array data type
 z1 = np.zeros(5)
 print(z1) # print the array of zeros
 z2 = np.zeros((2, 3)) 
