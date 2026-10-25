@@ -28,7 +28,7 @@ data = {
 
 # Create the pandas DataFrame
 df = pd.DataFrame(data)
-
+df.set_index("Name", inplace=True)
 # Display the DataFrame
 print(df)
 print(df.shape)
@@ -50,3 +50,29 @@ print(result_salary_gender)
 # • This is exactly what you want when comparing multiple columns for a single record.
 df["bonus"] = df[["Salary", "Age"]].apply(lambda x: x["Salary"] * 0.1 if x["Age"] > 30 else x["Salary"] * 0.15, axis=1)
 print(df)
+
+
+# Original Series
+s = pd.Series([10, 20, 30], index=['a', 'b', 'c'])
+
+# Create a deep copy
+s_deep = s.copy(deep=True)
+f_deep = s.copy(deep=False)
+# Modify the copy
+s_deep['a'] = 999
+
+print(s['a'])      # Output: 10  (Original remains unchanged)
+print(s_deep['a']) # Output: 999 (Copy is modified)
+print("Original Series after modifying deep copy:")
+print(s)
+print("Shallow copy:")
+print(f_deep)
+f_deep['a'] = 888
+s_deep['a'] = 777
+print("Shallow copy after modification:")
+print(f_deep)
+print("Original Series after modifying shallow copy:")
+print(s)
+# How to create empty data frame 
+empty_df = pd.DataFrame(columns=["Name", "Age", "Gender", "Salary"])
+print(empty_df)
