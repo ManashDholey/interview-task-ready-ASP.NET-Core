@@ -218,5 +218,21 @@ def sales_analysis(sales: pd.DataFrame, product: pd.DataFrame) -> pd.DataFrame:
 analysis_result = sales_analysis(sales, product)
 print("Sales analysis result:")
 print(analysis_result)
+data = [[1, 23], [2, 9], [4, 30], [5, 54], [6, 96], [7, 54], [8, 54]]
+visits = pd.DataFrame(data, columns=['visit_id', 'customer_id']).astype({'visit_id':'Int64', 'customer_id':'Int64'})
+data = [[2, 5, 310], [3, 5, 300], [9, 5, 200], [12, 1, 910], [13, 2, 970]]
+transactions = pd.DataFrame(data, columns=['transaction_id', 'visit_id', 'amount']).astype({'transaction_id':'Int64', 'visit_id':'Int64', 'amount':'Int64'})
+print(visits) # print the visits DataFrame with appropriate data types
+print(transactions) # print the transactions DataFrame with appropriate data types
 
-    
+def find_customers(visits: pd.DataFrame, transactions: pd.DataFrame) -> pd.DataFrame:
+    df_visits = visits
+    df_tran = transactions
+    df_tran = transactions
+    df = pd.merge(left = df_visits , right= df_tran, how='left',on='visit_id')
+    fc = df['transaction_id'].isnull()
+    return df[fc].groupby('customer_id').agg({'visit_id':'count'}).reset_index().rename(columns={'visit_id':'count_no_trans'})
+# Find customers with no transactions
+customers_no_trans = find_customers(visits, transactions)
+print("Customers with no transactions:")
+print(customers_no_trans)
