@@ -77,3 +77,7 @@ print(s)
 # How to create empty data frame 
 empty_df = pd.DataFrame(columns=["Name", "Age", "Gender", "Salary"])
 print(empty_df)
+a_one = np.array([1, 2, 3])
+print(a_one.ndim) # to know the array dimension
+print(a_one.shape) # to know the array shape
+
