@@ -236,3 +236,28 @@ def find_customers(visits: pd.DataFrame, transactions: pd.DataFrame) -> pd.DataF
 customers_no_trans = find_customers(visits, transactions)
 print("Customers with no transactions:")
 print(customers_no_trans)
+data = [[1, '2015-01-01', 10], [2, '2015-01-02', 25], [3, '2015-01-03', 20], [4, '2015-01-04', 30]]
+weather = pd.DataFrame(data, columns=['id', 'recordDate', 'temperature']).astype({'id':'Int64', 'recordDate':'datetime64[ns]', 'temperature':'Int64'})
+print(weather) # print the weather DataFrame with appropriate data types
+def rising_temperature(weather: pd.DataFrame) -> pd.DataFrame:
+    weather['recordDate'] = pd.to_datetime(weather['recordDate'])
+
+    df = weather.copy()
+    df['previous_date'] = df['recordDate'] - pd.Timedelta(days=1)
+
+    previous_day = weather[['recordDate', 'temperature']].copy()
+    previous_day = previous_day.rename(columns={
+        'recordDate': 'previous_date',
+        'temperature': 'previous_temperature'
+    })
+
+    df = df.merge(previous_day, on='previous_date', how='left')
+
+    result = df[df['temperature'] > df['previous_temperature']]
+
+    return result[['id']]
+
+# Find days with rising temperature
+rising_temp_days = rising_temperature(weather)
+print("Days with rising temperature:")
+print(rising_temp_days)
