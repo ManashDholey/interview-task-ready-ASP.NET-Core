@@ -94,13 +94,13 @@ print(c.dtype) # print the data type of the complex array
 
 p = np.ones([5,2,3],int)
 print(p) # print the 5x2x3 array of ones
-print(p.shape) # print the shape of the 5x2x3 array of ones
-print(p.dtype) # print the data type of the 5x2x3 array of ones
-print(p.ndim) # print the number of dimensions of the 5x2x3 array of ones
-print(p.size) # print the total number of elements in the 5x2x3 array of ones
-print(p.dtype) # print the 5x2x3 array of ones again for verification
-print(p.itemsize) # print the size in bytes of each element in the 5x2x3 array of ones
-print(p.nbytes) # print the total size in bytes of the 5x2x3 array of ones
-print(p.transpose()) # print the transposed 5x2x3 array of ones
-print(p.flat) # print the flattened iterator of the 5x2x3 array of ones
-print(list(p.flat)) # print the flattened array as a list for easier visualization
+print("Shape:",p.shape) # print the shape of the 5x2x3 array of ones
+print("Data type:",p.dtype) # print the data type of the 5x2x3 array of ones
+print("Number of dimensions:",p.ndim) # print the number of dimensions of the 5x2x3 array of ones
+print("Total size:",p.size) # print the total number of elements in the 5x2x3 array of ones
+print("Data type:",p.dtype) # print the 5x2x3 array of ones again for verification
+print("Item size:",p.itemsize) # print the size in bytes of each element in the 5x2x3 array of ones
+print("Total size in bytes:", p.nbytes) # print the total size in bytes of the 5x2x3 array of ones
+print("Transposed array:", p.transpose()) # print the transposed 5x2x3 array of ones
+print("Flattened iterator:", p.flat) # print the flattened iterator of the 5x2x3 array of ones
+print("Flattened array as list:", list(p.flat)) # print the flattened array as a list for easier visualization
