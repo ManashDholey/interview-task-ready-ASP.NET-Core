@@ -119,3 +119,19 @@ def find_products(products: pd.DataFrame) -> pd.DataFrame:
 filtered_products = find_products(products)
 print("Filtered products:")
 print(filtered_products)
+
+# Find Customer Referee
+data = [[1, 'Will', None], [2, 'Jane', None], [3, 'Alex', 2], [4, 'Bill', None], [5, 'Zack', 1], [6, 'Mark', 2]]
+customer = pd.DataFrame(data, columns=['id', 'name', 'referee_id']).astype({'id':'Int64', 'name':'object', 'referee_id':'Int64'})
+print(customer) # print the customer DataFrame with appropriate data types
+
+def find_customer_referee(customer: pd.DataFrame) -> pd.DataFrame:
+    df = customer
+    fc = (df['referee_id'] != 2 ) | (df['referee_id'].isnull())
+    df = df[fc]
+    return df[['id', 'name', 'referee_id']]
+
+# Find customers who have a referee
+filtered_customers = find_customer_referee(customer)
+print("Filtered customers:")
+print(filtered_customers)
