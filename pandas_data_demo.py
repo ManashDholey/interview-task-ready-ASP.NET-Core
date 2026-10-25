@@ -29,6 +29,7 @@ data = {
 # Create the pandas DataFrame
 df = pd.DataFrame(data)
 df.set_index("Name", inplace=True)
+df.reset_index("Name",inplace=True)
 # Display the DataFrame
 print(df)
 print(df.shape)
