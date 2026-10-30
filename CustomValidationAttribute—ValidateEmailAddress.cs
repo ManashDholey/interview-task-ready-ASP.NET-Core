@@ -32,8 +32,24 @@ public class ValidEmailAttribute : ValidationAttribute
             return new ValidationResult(
                 "Please enter a valid email address.");
         }
-
+        if (!IsValidEmail(email))
+        {
+            return new ValidationResult(
+                "Please enter a valid email address.");
+        }
         return ValidationResult.Success;
+    }
+}
+static bool IsValidEmail(string email)
+{
+    try
+    {
+        var addr = new System.Net.Mail.MailAddress(email);
+        return addr.Address == email;
+    }
+    catch
+    {
+        return false;
     }
 }
 // Use the Attribute in a Model
