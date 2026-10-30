@@ -503,4 +503,34 @@ SELECT
     transaction_date
 FROM transactions21;
 
+We need to find origin and final destination details. 
+To find out the expected output, I use joins.
 
+--Create table syntax
+CREATE TABLE Flights (cust_id INT, flight_id VARCHAR(10), origin VARCHAR(50), destination VARCHAR(50));
+
+-- Insert data into the table
+INSERT INTO Flights (cust_id, flight_id, origin, destination)
+VALUES (1, 'SG1234', 'Delhi', 'Hyderabad'), (1, 'SG3476', 'Kochi', 'Mangalore'), (1, '69876', 'Hyderabad', 'Kochi'), (2, '68749', 'Mumbai', 'Varanasi'), (2, 'SG5723', 'Varanasi', 'Delhi');
+WITH origins AS
+(
+    SELECT f1.cust_id, f1.origin
+    FROM Flights f1
+    LEFT JOIN Flights f2
+        ON f1.cust_id = f2.cust_id
+        AND f1.origin = f2.destination
+    WHERE f2.origin IS NULL
+),
+destinations AS
+(
+    SELECT f1.cust_id, f1.destination
+    FROM Flights f1
+    LEFT JOIN Flights f2
+        ON f1.cust_id = f2.cust_id
+        AND f1.destination = f2.origin
+    WHERE f2.destination IS NULL
+)
+SELECT *
+FROM origins o
+INNER JOIN destinations d
+    ON o.cust_id = d.cust_id;
