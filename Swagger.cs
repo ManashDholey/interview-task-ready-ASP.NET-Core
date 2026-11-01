@@ -208,7 +208,7 @@ public class EmployeeController : ControllerBase
         });
     }
 }
-// Step 5: Register middleware and run the application
+// Step 5: Register  and run the application
 // Make sure these registrations are included:
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();

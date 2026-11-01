@@ -1,6 +1,6 @@
 // ============================================================
 //  ASP.NET Core - Complete Middleware Pipeline Example
-//  All 10 middleware in the correct production order
+//  All 11 middleware in the correct production order
 // ============================================================
 
 // ───────────────────────────────────────────
@@ -30,6 +30,9 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+// ── 6a. Response Compression ─────────────────────────────────
+builder.Services.AddResponseCompression();
 
 // ── 7. Authentication ────────────────────────────────────────
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -130,6 +133,14 @@ app.UseRouting();
 // Handles cross-origin requests.
 // Must be AFTER Routing (needs route info) and BEFORE Auth.
 app.UseCors("AllowSpecificOrigin");
+
+// ── 6a. Response Compression ─────────────────────────────────
+// Compresses response bodies (gzip, deflate) for reduced bandwidth.
+// Must come AFTER CORS but BEFORE Auth (content negotiation).
+//app.UseResponseCompression() is a middleware configuration method in ASP.NET Core used to 
+// dynamically compress HTTP responses. Compressing payloads reduces the network transfer 
+// size, leading to faster load times and lower bandwidth costs for your web applications.
+app.UseResponseCompression();
 
 // ── 7. Authentication ────────────────────────────────────────
 // Reads the request (e.g. JWT token) and identifies WHO the user is.
