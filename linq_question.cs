@@ -59,6 +59,14 @@ double difference = num1 - num2;
 
 //2️⃣ Declare a 3D Array
 int[,,] array3D = new int[3, 3, 3];
+// Assign values
+array3D[0, 0, 0] = 10;
+array3D[0, 0, 1] = 20;
+array3D[1, 1, 1] = 50;
+
+// Access value
+Console.WriteLine(array3D[0, 0, 0]); // 10
+Console.WriteLine(array3D[1, 1, 1]); // 50
 
 //3️⃣ Print duplicate values in an array using LINQ
 char[] duplicate_values = { 'a','b','a','c','d','e','b' };
