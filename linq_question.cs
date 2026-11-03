@@ -36,3 +36,14 @@ foreach (var item in result)
             .FirstOrDefault();
 
         Console.WriteLine($"{n}rd highest salary: {result1}");         
+To paginate data with LINQ, use Skip() and Take() 
+
+int pageSize =  10; 
+
+int pageNumber =  2; 
+
+var pagedResults =  context.Products 
+.OrderBy( p = > p.Name) 
+.Skip(( pageNumber- 1) * pageSize) 
+.Take( pageSize) 
+.ToList(); 
