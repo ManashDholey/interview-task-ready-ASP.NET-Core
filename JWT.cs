@@ -68,8 +68,9 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-// Attach middleware to the pipeline
-app.UseAuthentication(); 
+// Attach middleware to the pipeline. Authentication validates and decodes the JWT first.
+app.UseAuthentication();
+app.UseMiddleware<JwtTokenDecodeMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers(); // Or MapGroup for Minimal APIs
@@ -129,7 +130,7 @@ public class JwtService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-}   
+}
 
 // How can you authorize API endpoints using JWT tokens?
 // 2. Authorize an endpoint using [Authorize]
@@ -265,7 +266,7 @@ public async Task<IActionResult> Login(LoginModel model)
         refreshToken,
         expiresIn = 900
     });
-}    
+}
 
 // Step 6: Create Refresh Token API
 // This API validates the refresh token and issues a new access token.
@@ -342,3 +343,26 @@ public class RefreshTokenRequest
 // 5. Return the new tokens to the client.
 // 6. Repeat the process whenever the client requests a new access token using the refresh token.
 
+// Runs after UseAuthentication: the JWT bearer handler has already validated the token's
+// signature, issuer, audience, and lifetime. This middleware makes those validated claims
+// available in HttpContext.Items["JwtClaims"] for downstream middleware/controllers.
+// For normal controller authorization, prefer HttpContext.User / [Authorize].
+public sealed class JwtTokenDecodeMiddleware
+{
+    private readonly RequestDelegate _next;
+
+    public JwtTokenDecodeMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        if (context.User.Identity?.IsAuthenticated == true)
+        {
+            context.Items["JwtClaims"] = context.User.Claims.ToArray();
+        }
+
+        await _next(context);
+    }
+}
