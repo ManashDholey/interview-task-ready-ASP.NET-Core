@@ -130,6 +130,43 @@ public class JwtService
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+    // Validates the token's signature, issuer, audience, and lifetime before
+    // returning a claim. Never trust claims from a token that was only decoded.
+    public string? GetClaimFromToken(string token, string claimType)
+    {
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            throw new ArgumentException("Token cannot be empty.", nameof(token));
+        }
+
+        if (string.IsNullOrWhiteSpace(claimType))
+        {
+            throw new ArgumentException("Claim type cannot be empty.", nameof(claimType));
+        }
+
+        var jwtSettings = _configuration.GetSection("Jwt");
+        var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
+        var tokenHandler = new JwtSecurityTokenHandler();
+
+        var principal = tokenHandler.ValidateToken(
+            token,
+            new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = jwtSettings["Issuer"],
+                ValidAudience = jwtSettings["Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ClockSkew = TimeSpan.Zero
+            },
+            out _
+        );
+
+        return principal.FindFirst(claimType)?.Value;
+    }
 }
 
 // How can you authorize API endpoints using JWT tokens?
