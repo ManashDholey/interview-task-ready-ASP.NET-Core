@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 // Builds the base route from the controller name: /api/products.
 [Route("api/[controller]")]
+// ControllerBase is the base class for API controllers.
+// It provides HTTP response helpers like Ok(), NotFound(), BadRequest(),
+// and is used when the controller returns JSON data instead of MVC views.
 public class ProductsController : ControllerBase
 {
     // Demo-only in-memory storage. The static list is shared across requests,
