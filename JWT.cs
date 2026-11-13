@@ -68,7 +68,7 @@ var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-// Attach middleware to the pipeline. Authentication validates and decodes the JWT first.
+// Authentication validates and decodes the JWT before the claims middleware reads them.
 app.UseAuthentication();
 app.UseMiddleware<JwtTokenDecodeMiddleware>();
 app.UseAuthorization();
@@ -343,10 +343,10 @@ public class RefreshTokenRequest
 // 5. Return the new tokens to the client.
 // 6. Repeat the process whenever the client requests a new access token using the refresh token.
 
-// Runs after UseAuthentication: the JWT bearer handler has already validated the token's
-// signature, issuer, audience, and lifetime. This middleware makes those validated claims
-// available in HttpContext.Items["JwtClaims"] for downstream middleware/controllers.
-// For normal controller authorization, prefer HttpContext.User / [Authorize].
+// Reads claims only from the authenticated principal populated by JWT bearer validation.
+// This avoids treating an unverified, merely decoded JWT payload as trusted data.
+// Claims are exposed as key/value arrays because JWTs may contain repeated claim names
+// (for example, multiple roles). Access them downstream with HttpContext.Items["JwtClaims"].
 public sealed class JwtTokenDecodeMiddleware
 {
     private readonly RequestDelegate _next;
@@ -360,7 +360,14 @@ public sealed class JwtTokenDecodeMiddleware
     {
         if (context.User.Identity?.IsAuthenticated == true)
         {
-            context.Items["JwtClaims"] = context.User.Claims.ToArray();
+            var claimsByType = context.User.Claims
+                .GroupBy(claim => claim.Type)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Select(claim => claim.Value).ToArray()
+                );
+
+            context.Items["JwtClaims"] = claimsByType;
         }
 
         await _next(context);
