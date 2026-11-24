@@ -26,3 +26,18 @@ WITH EmployeeHierarchy AS
 )
 SELECT *
 FROM EmployeeHierarchy;
+
+SELECT
+    u.Id,
+    u.Name,
+    COALESCE(SUM(t.Hours), 0) AS TotalHours
+FROM [User] u
+LEFT JOIN TimeCard t
+    ON u.Id = t.Id
+    AND t.Date >= DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
+    AND t.Date < DATEADD(MONTH, 1, DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1))
+GROUP BY
+    u.Id,
+    u.Name
+ORDER BY
+    u.Name;
