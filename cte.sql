@@ -26,7 +26,52 @@ WITH EmployeeHierarchy AS
 )
 SELECT *
 FROM EmployeeHierarchy;
+Go
+    CREATE TABLE [User] (
+    Id INT PRIMARY KEY,
+    Name VARCHAR(100)
+);
 
+CREATE TABLE TimeCard (
+    Id INT,
+    Hours DECIMAL(5,2),
+    Date DATE
+);
+GO
+    INSERT INTO [User] (Id, Name)
+VALUES
+(1, 'Manash'),
+(2, 'Rahul'),
+(3, 'Amit'),
+(4, 'Priya'),
+(5, 'Sourav');
+GO
+INSERT INTO TimeCard (Id, Hours, Date)
+VALUES
+-- Manash (November 2026)
+(1, 8, '2026-11-01'),
+(1, 7, '2026-11-02'),
+(1, 8, '2026-11-03'),
+(1, 6, '2026-11-04'),
+
+-- Rahul (November 2026)
+(2, 8, '2026-11-01'),
+(2, 8, '2026-11-02'),
+(2, 5, '2026-11-03'),
+
+-- Amit (November 2026)
+(3, 4, '2026-11-01'),
+(3, 6, '2026-11-02'),
+
+-- Priya (Previous month - October 2026)
+(4, 8, '2026-10-01'),
+(4, 8, '2026-10-02'),
+(4, 7, '2026-10-03'),
+
+-- Manash (Previous year - November 2025)
+(1, 8, '2025-11-01'),
+
+-- Sourav (No time-card records);    
 SELECT
     u.Id,
     u.Name,
