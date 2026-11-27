@@ -1,0 +1,57 @@
+// 1. Strategy Interface
+public interface IShippingStrategy
+{
+    decimal CalculateCost(decimal orderTotal);
+}
+
+// 2. Concrete Strategies
+public class StandardShipping : IShippingStrategy
+{
+    public decimal CalculateCost(decimal orderTotal) => 5.00m;
+}
+
+public class ExpressShipping : IShippingStrategy
+{
+    public decimal CalculateCost(decimal orderTotal) => 15.00m;
+}
+
+public class FreeShipping : IShippingStrategy
+{
+    public decimal CalculateCost(decimal orderTotal) => 0.00m;
+}
+
+// 3. Context
+public class OrderCheckout
+{
+    private IShippingStrategy _shippingStrategy;
+
+    public OrderCheckout(IShippingStrategy shippingStrategy)
+    {
+        _shippingStrategy = shippingStrategy;
+    }
+
+    // Allows changing the behavior dynamically at runtime
+    public void SetShippingStrategy(IShippingStrategy shippingStrategy)
+    {
+        _shippingStrategy = shippingStrategy;
+    }
+
+    public decimal GetFinalTotal(decimal orderTotal)
+    {
+        return orderTotal + _shippingStrategy.CalculateCost(orderTotal);
+    }
+}
+
+// 4. Client Usage
+public class Program
+{
+    public static void Main()
+    {
+        var checkout = new OrderCheckout(new StandardShipping());
+        Console.WriteLine($"Standard Total: {checkout.GetFinalTotal(50m)}"); // Output: 55.00
+
+        // Swap strategy at runtime
+        checkout.SetShippingStrategy(new ExpressShipping());
+        Console.WriteLine($"Express Total: {checkout.GetFinalTotal(50m)}");  // Output: 65.00
+    }
+}
